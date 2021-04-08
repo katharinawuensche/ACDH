@@ -6,8 +6,8 @@
         <a href="#" class="navbar-brand custom-logo-link" rel="home" itemprop="url"
           ><img src="./assets/logo.png" class="img-fluid" alt="Your Logo" itemprop="logo"
         /></a>
-        <a class="navbar-brand site-title-with-logo" rel="home" href="#" title="Your Project" itemprop="url"
-          >Your Project</a
+        <a class="navbar-brand site-title-with-logo" rel="home" href="#" title="MMP Search" itemprop="url"
+          >MMP Search</a
         >
         <button
           class="navbar-toggler"
@@ -26,35 +26,51 @@
             <li id="menu-item-11" class="menu-item nav-item"><a title="Home" href="#" class="nav-link">Home</a></li>
             <li id="menu-item-15" class="menu-item nav-item"><a title="About" href="#" class="nav-link">About</a></li>
           </ul>
+          <form class="form-inline my-2 my-lg-0 navbar-search-form" method="get" action="/" role="search">
+            <input
+              class="form-control navbar-search"
+              id="s"
+              name="s"
+              type="text"
+              placeholder="Search"
+              value=""
+              autocomplete="off"
+            />
+            <button type="submit" class="navbar-search-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-search"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </form>
         </div>
         <!-- .collapse navbar-collapse -->
       </div>
       <!-- .container -->
     </nav>
-    <img alt="Vue logo" src="./assets/logo.png" width="25%" />
-    <HelloWorld msg="Hello Vue in CodeSandbox!" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
   name: "App",
-  components: {
-    HelloWorld,
-  },
+  components: {},
 };
 </script>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  /* margin-top: 60px; */
   width: 100%;
 }
 </style>
