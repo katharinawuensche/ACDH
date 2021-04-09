@@ -5,7 +5,11 @@
       <div class="container">
         <!-- Your site title as branding in the menu -->
         <a href="#" class="navbar-brand custom-logo-link" rel="home" itemprop="url"
-          ><img src="./assets/logo.png" class="img-fluid" alt="Your Logo" itemprop="logo"
+          ><img
+            src="https://shared.acdh.oeaw.ac.at/favicon/apple-touch-icon.png"
+            class="img-fluid"
+            alt="ACDH Logo"
+            itemprop="logo"
         /></a>
         <a class="navbar-brand site-title-with-logo" rel="home" href="#" title="MMP Search" itemprop="url">
           MMP Search
