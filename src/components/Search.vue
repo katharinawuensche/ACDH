@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <!-- Adapted from Fundament -->
     <div class="form-inline my-2 my-lg-0 navbar-search-form" method="get" action="/" role="search">
       <input class="form-control navbar-search" type="text" placeholder="Search" v-model="zitat" autocomplete="off" />
@@ -26,7 +26,7 @@
       <a :href="`https://mmp.acdh-dev.oeaw.ac.at/archiv/stelle/detail/${result.legacy_pk + 1}`" target="blank">{{
         result.display_label
       }}</a>
-      <span v-for="keyWord in result.key_word" :key="keyWord.legacy_pk">
+      <span v-for="keyWord in result.key_word" :key="keyWord.legacy_pk" class="keyword">
         {{ keyWord.stichwort }}
       </span>
     </div>
@@ -60,3 +60,15 @@ export default {
   },
 };
 </script>
+<style>
+.keyword {
+  background-color: var(--white);
+  border: 2px solid #88dbdf;
+  margin: 2px;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+.navbar-search-icon {
+  border: none;
+}
+</style>
