@@ -69,7 +69,7 @@ export default {
       limit: 20,
       page: 1,
       results: {},
-      tableCols: { start_date: "From", end_date: "To" },
+      tableCols: { start_date: "From", end_date: "To", author_name: "Author", place_name: "Place" },
     };
   },
   watch: {
@@ -77,6 +77,7 @@ export default {
       this.searchZitat();
     },
     limit: function() {
+      this.page = 1;
       this.searchZitat();
     },
   },
@@ -91,11 +92,30 @@ export default {
       let params = new URLSearchParams({ zitat: this.zitat, limit: this.limit, offset: (this.page - 1) * this.limit });
       this.loading = true;
       this.results = {};
-      fetch(baseUrl + params)
+      fetch(baseUrl + params.toString())
         .then((res) => res.json())
         .then((res) => {
-          this.results = res;
-          this.loading = false;
+          Promise.all(
+            [
+              res.results
+                .filter((entry) => entry.text.ort.length > 0)
+                .map((entry) =>
+                  fetch(entry.text.ort[0])
+                    .then((placeRes) => placeRes.json())
+                    .then((placeRes) => (entry.text.place_name = placeRes.name))
+                ),
+              res.results
+                .filter((entry) => entry.text.autor.length > 0)
+                .map((entry) =>
+                  fetch(entry.text.autor[0])
+                    .then((authorRes) => authorRes.json())
+                    .then((authorRes) => (entry.text.author_name = authorRes.name_en))
+                ),
+            ].flat()
+          ).then(() => {
+            this.results = res;
+            this.loading = false;
+          });
         });
     },
   },
