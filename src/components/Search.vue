@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Adapted from Fundament -->
     <div class="search-controls">
-      <div class="form-inline" role="search">
+      <div class="form-inline" role="search" style="grid-area: a">
         <input
           class="form-control navbar-search"
           type="text"
@@ -28,10 +28,13 @@
           </svg>
         </button>
       </div>
-      <div class="form-inline" v-if="results.count">
+      <div class="form-inline" v-if="results.count" style="grid-area: b">
         Results: {{ (page - 1) * limit + 1 }}-{{ Math.min(page * limit, results.count) }}/{{ results.count }}
       </div>
-      <div class="paging-controls form-inline">
+      <div class="paging-controls form-inline" style="grid-area: c">
+        Sort by relevance <input class="form-control" type="checkbox" v-model="relevanceSort" />
+      </div>
+      <div class="paging-controls form-inline" style="grid-area: d">
         Entries per page
         <select class="form-control" v-model="limit">
           <option value="5">5</option>
@@ -41,7 +44,7 @@
           <option value="50">50</option>
         </select>
       </div>
-      <div class="paging-controls form-inline">
+      <div class="paging-controls form-inline" style="grid-area: e">
         Go to page
         <select class="form-control" v-model="page">
           <option v-for="i in Math.ceil(results.count / this.limit) || 0" :key="i" :value="i">{{ i }}</option>
@@ -51,7 +54,7 @@
     <span v-if="loading">Loading...</span>
     <div class="card">
       <div class="card-body">
-        <Table :rowData="results.results" :textColumns="tableCols"></Table>
+        <Table :rowData="sortedRowData" :textColumns="tableCols"></Table>
       </div>
     </div>
   </div>
@@ -69,6 +72,7 @@ export default {
       limit: 20,
       page: 1,
       results: {},
+      relevanceSort: false,
       tableCols: { start_date: "From", end_date: "To", author_name: "Author", place_name: "Place" },
     };
   },
@@ -81,7 +85,29 @@ export default {
       this.searchZitat();
     },
   },
-  computed: {},
+  computed: {
+    sortedRowData() {
+      if (this.relevanceSort)
+        return this.results.results
+          ? this.results.results.slice().sort((a, b) => {
+              //compare direct keyword matching
+              let direct_keywords_a = a.key_word.filter((keyword) => keyword.stichwort == this.zitat).length;
+              let direct_keywords_b = b.key_word.filter((keyword) => keyword.stichwort == this.zitat).length;
+              if (direct_keywords_a == direct_keywords_b) {
+                //compare keyword variant matching
+                let keywords_a = a.key_word.filter((keyword) => keyword.varianten.indexOf(this.zitat) >= 0).length;
+                let keywords_b = b.key_word.filter((keyword) => keyword.varianten.indexOf(this.zitat) >= 0).length;
+                if (keywords_a == keywords_b) {
+                  let text_matches_a = (a.zitat.match(this.zitat) || []).length;
+                  let text_matches_b = (b.zitat.match(this.zitat) || []).length;
+                  return text_matches_b - text_matches_a;
+                } else return keywords_b - keywords_a;
+              } else return direct_keywords_b - direct_keywords_a;
+            })
+          : [];
+      else return this.results.results || [];
+    },
+  },
   methods: {
     searchButtonClick() {
       this.page = 1;
@@ -129,7 +155,10 @@ export default {
 }
 .search-controls {
   padding: 5px 0;
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "a b ."
+    "c d e";
   justify-content: space-between;
 }
 .form-inline {
@@ -137,5 +166,10 @@ export default {
 }
 .paging-controls {
   gap: 5px;
+}
+@media (min-width: 992px) {
+  .search-controls {
+    grid-template-areas: "a b c d e";
+  }
 }
 </style>
