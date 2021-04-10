@@ -91,15 +91,23 @@ export default {
         return this.results.results
           ? this.results.results.slice().sort((a, b) => {
               //compare direct keyword matching
-              let direct_keywords_a = a.key_word.filter((keyword) => keyword.stichwort == this.zitat).length;
-              let direct_keywords_b = b.key_word.filter((keyword) => keyword.stichwort == this.zitat).length;
+              let direct_keywords_a = a.key_word.filter(
+                (keyword) => keyword.stichwort.toLowerCase() == this.zitat.toLowerCase()
+              ).length;
+              let direct_keywords_b = b.key_word.filter(
+                (keyword) => keyword.stichwort.toLowerCase() == this.zitat.toLowerCase()
+              ).length;
               if (direct_keywords_a == direct_keywords_b) {
                 //compare keyword variant matching
-                let keywords_a = a.key_word.filter((keyword) => keyword.varianten.indexOf(this.zitat) >= 0).length;
-                let keywords_b = b.key_word.filter((keyword) => keyword.varianten.indexOf(this.zitat) >= 0).length;
+                let keywords_a = a.key_word.filter(
+                  (keyword) => keyword.varianten.toLowerCase().indexOf(this.zitat.toLowerCase()) >= 0
+                ).length;
+                let keywords_b = b.key_word.filter(
+                  (keyword) => keyword.varianten.toLowerCase().indexOf(this.zitat.toLowerCase()) >= 0
+                ).length;
                 if (keywords_a == keywords_b) {
-                  let text_matches_a = (a.zitat.match(this.zitat) || []).length;
-                  let text_matches_b = (b.zitat.match(this.zitat) || []).length;
+                  let text_matches_a = (a.zitat.toLowerCase().match(this.zitat) || []).length;
+                  let text_matches_b = (b.zitat.toLowerCase().match(this.zitat) || []).length;
                   return text_matches_b - text_matches_a;
                 } else return keywords_b - keywords_a;
               } else return direct_keywords_b - direct_keywords_a;
