@@ -4,7 +4,8 @@ This repository contains my solution to the assessment task for the frontend web
 
 ## Quickstart
 
-To start the application, simply clone the repository and run `npm install` and `npm run serve`.
+A preview of the application can be found here: https://x4ml3.csb.app/
+To run the application locally, simply clone the repository and run `npm install` and `npm run serve`.
 
 ## Task completion
 
