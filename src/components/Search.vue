@@ -183,4 +183,17 @@ export default {
     grid-template-areas: "a b c d e";
   }
 }
+@media (max-width: 576px) {
+  .search-controls {
+    grid-template-areas:
+      "a"
+      "b"
+      "c"
+      "d"
+      "e";
+  }
+  .form-control {
+    width: auto;
+  }
+}
 </style>
