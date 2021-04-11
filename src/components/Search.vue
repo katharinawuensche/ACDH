@@ -175,6 +175,9 @@ export default {
 .paging-controls {
   gap: 5px;
 }
+.card-body {
+  overflow-x: auto;
+}
 @media (min-width: 992px) {
   .search-controls {
     grid-template-areas: "a b c d e";

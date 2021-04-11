@@ -32,15 +32,4 @@ export default {
   },
 };
 </script>
-<style>
-.keyword {
-  background-color: var(--white);
-  border: 2px solid #88dbdf;
-  margin: 2px;
-  padding: 0 2px;
-  border-radius: 3px;
-}
-.navbar-search-icon {
-  border: none;
-}
-</style>
+<style></style>
