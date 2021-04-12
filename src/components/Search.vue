@@ -178,6 +178,9 @@ export default {
 .card-body {
   overflow-x: auto;
 }
+.navbar-search-icon {
+  cursor: pointer;
+}
 @media (min-width: 992px) {
   .search-controls {
     grid-template-areas: "a b c d e";
