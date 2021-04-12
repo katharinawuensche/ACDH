@@ -2,7 +2,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Label</th>
+        <th>Result</th>
         <th>Keywords</th>
         <th v-for="col in Object.keys(textColumns)" :key="col">{{ textColumns[col] }}</th>
       </tr>
